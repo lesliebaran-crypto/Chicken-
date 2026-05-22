@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Chicken Life & Hatching Cycle</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for beautiful iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for friendly, clear typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fdfbf7;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navigation Banner -->
+    <header class="bg-amber-500 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-amber-500 p-2 rounded-full shadow-inner flex items-center justify-center w-12 h-12">
+                    <i class="fa-solid fa-egg text-2xl animate-bounce"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide">Egg To Chick</h1>
+                    <p class="text-xs text-amber-100 font-medium">Interactive Guide to Chicken Reproduction & Incubation</p>
+                </div>
+            </div>
+            <!-- Navigation Tabs -->
+            <nav class="flex flex-wrap gap-2 justify-center">
+                <button onclick="switchTab('lifecycle')" id="tab-lifecycle" class="nav-btn bg-amber-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-rotate"></i> Lifecycle
+                </button>
+                <button onclick="switchTab('candling')" id="tab-candling" class="nav-btn bg-amber-400 text-amber-950 px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb"></i> Candling Sim
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn bg-amber-400 text-amber-950 px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-brain"></i> Quiz Time
+                </button>
+                <button onclick="switchTab('expert')" id="tab-expert" class="nav-btn bg-amber-400 text-amber-950 px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-comments"></i> Ask the Expert
+                </button>
+                <button onclick="switchTab('lab')" id="tab-lab" class="nav-btn bg-amber-400 text-amber-950 px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Illustration Lab
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- Banner / Notification Box (Custom modal-less feedback) -->
+        <div id="notification-banner" class="hidden mb-6 p-4 rounded-xl border flex justify-between items-center transition-all duration-300">
+            <div class="flex items-center gap-3">
+                <span id="notif-icon" class="text-xl"></span>
+                <p id="notif-message" class="font-medium text-sm"></p>
+            </div>
+            <button onclick="hideNotification()" class="text-slate-500 hover:text-slate-700">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- ==================== TAB: LIFECYCLE ==================== -->
+        <section id="view-lifecycle" class="tab-view space-y-8 animate-fade-in">
+            <!-- Hero Introduction -->
+            <div class="bg-gradient-to-r from-amber-100 via-orange-50 to-amber-100 rounded-3xl p-6 md:p-10 border border-amber-200 shadow-sm flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1 space-y-4 text-center md:text-left">
+                    <span class="bg-amber-200 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">How Life Begins</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-amber-900 leading-tight">The Fascinating Journey from Egg to Chick</h2>
+                    <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+                        Ever wondered how a simple egg transforms into a fluffy, chirping little chick in exactly 21 days? Dive into the incredible science of avian genetics, mating habits, egg production, and embryo growth.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                        <button onclick="switchTab('candling')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-play"></i> Start Interactive Candling
+                        </button>
+                        <a href="#anatomical-card" class="bg-white hover:bg-amber-50 text-amber-700 font-bold px-6 py-3 rounded-xl transition border border-amber-200 shadow-sm flex items-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass"></i> Explore Anatomy
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full max-w-sm md:w-1/3 flex justify-center">
+                    <!-- Fun Animated Hen SVG -->
+                    <svg class="w-64 h-64 drop-shadow-lg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 170C138.66 170 170 138.66 170 100C170 61.3401 138.66 30 100 30C61.3401 30 30 61.3401 30 100C30 138.66 61.3401 170 100 170Z" fill="#FDF4E3"/>
+                        <!-- Hen Body -->
+                        <path d="M50 110C50 70 80 50 110 50C130 50 150 65 150 90C150 120 120 140 90 140C65 140 50 130 50 110Z" fill="#E28743"/>
+                        <!-- Comb -->
+                        <path d="M105 32C105 25 115 20 120 28C125 20 135 25 130 35C138 35 142 45 133 48L110 48" fill="#E05B5B"/>
+                        <!-- Beak -->
+                        <path d="M153 80L168 85L153 92Z" fill="#E6A15C"/>
+                        <!-- Eye -->
+                        <circle cx="132" cy="74" r="5" fill="#2D3748"/>
+                        <!-- Wing -->
+                        <path d="M80 95C80 85 110 80 120 95C125 102 120 115 105 115C90 115 80 105 80 95Z" fill="#C56A28"/>
+                        <!-- Egg -->
+                        <path d="M110 142C110 135 118 130 124 135C130 140 126 150 120 150C114 150 110 147 110 142Z" fill="#FFFFFF" stroke="#E2CD9D" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- The Big Steps of Chicken Reproduction -->
+            <div class="space-y-6">
+                <div class="text-center">
+                    <h3 class="text-3xl font-extrabold text-slate-800">The 5 Core Stages of the Reproductive Cycle</h3>
+                    <p class="text-slate-500 max-w-2xl mx-auto mt-2">Let's follow the natural progress from when a rooster and hen meet, to how an egg is developed, incubated, and hatched.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <!-- Stage 1 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-3 hover:border-amber-300 transition group">
+                        <div class="w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center text-xl font-bold group-hover:bg-rose-500 group-hover:text-white transition">1</div>
+                        <h4 class="font-bold text-slate-800 text-lg">Mating & Genetics</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">A rooster courts a hen with a dance. For an egg to hatch, sperm must fertilize the germinal disc at the top of the egg yolk.</p>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-3 hover:border-amber-300 transition group">
+                        <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center text-xl font-bold group-hover:bg-amber-500 group-hover:text-white transition">2</div>
+                        <h4 class="font-bold text-slate-800 text-lg">Egg Assembly</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">Over 25 hours, a hen produces a single egg. High-calcium shell glands coat the egg before it's laid.</p>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-3 hover:border-amber-300 transition group">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-xl font-bold group-hover:bg-blue-500 group-hover:text-white transition">3</div>
+                        <h4 class="font-bold text-slate-800 text-lg">Nesting Instinct</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">Once she gathers a clutch (typically 10-12 eggs), the hen goes "broody," remaining on the nest to keep them warm.</p>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-3 hover:border-amber-300 transition group">
+                        <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl font-bold group-hover:bg-indigo-500 group-hover:text-white transition">4</div>
+                        <h4 class="font-bold text-slate-800 text-lg">Incubation</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">Takes 21 days of strict care. Eggs need a constant temp of 99.5°F (37.5°C), high humidity, and regular turning.</p>
+                    </div>
+
+                    <!-- Stage 5 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-3 hover:border-amber-300 transition group">
+                        <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl font-bold group-hover:bg-emerald-500 group-hover:text-white transition">5</div>
+                        <h4 class="font-bold text-slate-800 text-lg">The Hatch!</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">The chick uses a special temporary egg tooth on its beak to break through the shell, zipping around and rolling free!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Egg Anatomy Deep-Dive -->
+            <div id="anatomical-card" class="bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Anatomical SVG Diagram -->
+                    <div class="flex flex-col items-center justify-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                        <h4 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-shapes text-amber-500"></i> Egg Anatomy Diagram
+                        </h4>
+                        <!-- SVG showing Egg Parts -->
+                        <svg class="w-full max-w-sm" viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Shell -->
+                            <path d="M150 20C80 20 40 90 40 140C40 190 90 220 150 220C210 220 260 190 260 140C260 90 220 20 150 20Z" fill="#FFFBF5" stroke="#E2D4C0" stroke-width="4"/>
+                            <!-- Inner Membrane Space / Air Cell at flat bottom -->
+                            <path d="M73 195C95 210 120 215 150 215C180 215 205 210 227 195C215 185 185 180 150 180C115 180 85 185 73 195Z" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <!-- Yolk -->
+                            <circle cx="150" cy="120" r="45" fill="#FBBF24" stroke="#F59E0B" stroke-width="2"/>
+                            <!-- Chalaza (Left) -->
+                            <path d="M60 120Q100 110 105 120" stroke="#E2E8F0" stroke-width="3" fill="none"/>
+                            <!-- Chalaza (Right) -->
+                            <path d="M240 120Q200 130 195 120" stroke="#E2E8F0" stroke-width="3" fill="none"/>
+                            <!-- Albumen Outline -->
+                            <path d="M90 120C90 90 110 70 150 70C190 70 210 90 210 120C210 150 180 170 150 170C110 170 90 150 90 120Z" fill="#FFF9E6" fill-opacity="0.6" stroke="#FEF3C7" stroke-width="2"/>
+                            <!-- Germinal Disc (Small dot on yolk) -->
+                            <circle cx="150" cy="85" r="5" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+                            <path d="M150 80L165 65" stroke="#E11D48" stroke-width="1.5"/>
+                            <!-- Text Labels pointer lines -->
+                            <!-- Germinal Disc -->
+                            <text x="170" y="63" fill="#E11D48" font-size="10" font-weight="bold">Germinal Disc (Embryo Spot)</text>
+                            <!-- Yolk -->
+                            <path d="M130 130L90 150" stroke="#F59E0B" stroke-width="1"/>
+                            <text x="50" y="162" fill="#D97706" font-size="10" font-weight="bold">Yolk (Nutrients)</text>
+                            <!-- Albumen -->
+                            <path d="M185 95L215 75" stroke="#D97706" stroke-width="1"/>
+                            <text x="220" y="73" fill="#D97706" font-size="10" font-weight="bold">Albumen (Egg White)</text>
+                            <!-- Air Cell -->
+                            <text x="110" y="200" fill="#475569" font-size="10" font-weight="bold">Air Cell (For Breathing)</text>
+                            <!-- Chalaza -->
+                            <text x="10" y="115" fill="#64748B" font-size="9" font-weight="bold">Chalaza (Yolk Anchor)</text>
+                        </svg>
+                    </div>
+
+                    <!-- Description & Science of Reproduction -->
+                    <div class="space-y-6">
+                        <h4 class="text-2xl font-bold text-slate-800">Do Hens Need a Rooster to Lay Eggs?</h4>
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-100 text-sm text-slate-700 leading-relaxed">
+                            <strong class="text-amber-900 block mb-1"><i class="fa-solid fa-lightbulb"></i> Fun Fact:</strong>
+                            No! A hen's body releases an egg yolk regularly, regardless of whether a rooster is present. The standard backyard chicken will lay tasty, unfertilized eggs which can never hatch. However, if a rooster is in the flock, he will mate with the hen, fertilizing the tiny white spot on the yolk (the <strong>germinal disc</strong>), allowing it to develop into a chick once incubated.
+                        </div>
+
+                        <div class="space-y-4">
+                            <h5 class="font-bold text-slate-800 border-b pb-2">Key Anatomical Roles:</h5>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-1">
+                                    <p class="font-bold text-slate-700"><i class="fa-solid fa-circle text-amber-500 text-xs"></i> The Yolk:</p>
+                                    <p class="text-slate-500 text-xs">Contains the fat, proteins, and vitamins needed to feed the growing embryo for 21 days.</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="font-bold text-slate-700"><i class="fa-solid fa-circle text-amber-500 text-xs"></i> Albumen (Egg White):</p>
+                                    <p class="text-slate-500 text-xs">Composed of 90% water and protective proteins, buffering the yolk from physical shock.</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="font-bold text-slate-700"><i class="fa-solid fa-circle text-amber-500 text-xs"></i> Chalaza:</p>
+                                    <p class="text-slate-500 text-xs">Rope-like structures made of twisted protein strands that anchor the yolk perfectly in the center of the egg.</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="font-bold text-slate-700"><i class="fa-solid fa-circle text-amber-500 text-xs"></i> The Shell & Air Cell:</p>
+                                    <p class="text-slate-500 text-xs">The calcium shell contains thousands of microscopic pores allowing air inside. The air cell at the bottom expands as water evaporates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB: CANDLING SIMULATOR ==================== -->
+        <section id="view-candling" class="tab-view hidden space-y-8 animate-fade-in">
+            <!-- Candling Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Interactive Simulator</span>
+                <h2 class="text-3xl font-extrabold text-slate-800">Day-by-Day Egg Candling Simulator</h2>
+                <p class="text-slate-600 text-sm">
+                    In real life, breeders shine a bright flashlight (called a "candler") through eggshells in a dark room to check if chicks are growing. Drag the slider below to see what happens inside the egg across all 21 days!
+                </p>
+            </div>
+
+            <!-- Candling Station -->
+            <div class="bg-slate-900 text-slate-100 rounded-3xl p-6 md:p-8 border border-slate-800 shadow-xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                
+                <!-- Egg Display Visualizer (Left) -->
+                <div class="flex flex-col items-center justify-center p-6 bg-slate-950 rounded-2xl border border-slate-800 relative overflow-hidden min-h-[350px]">
+                    <!-- Glowing Backlight Glow Effect that activates on hovering "Flashlight" -->
+                    <div id="glow-element" class="absolute w-56 h-72 rounded-full bg-orange-500 opacity-20 blur-3xl pointer-events-none transition-all duration-300"></div>
+
+                    <!-- Main Dynamic Egg Display -->
+                    <div class="relative z-10 w-64 h-80 flex items-center justify-center">
+                        <svg class="w-full h-full drop-shadow-[0_10px_30px_rgba(249,115,22,0.15)]" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background Light Beam (Fades based on Slider) -->
+                            <ellipse cx="100" cy="180" rx="35" ry="10" fill="#F59E0B" opacity="0.6"/>
+                            <polygon points="65,180 135,180 180,240 20,240" fill="url(#flashlightBeam)" opacity="0.2"/>
+                            
+                            <!-- Main Outer Egg Shell -->
+                            <path d="M100 20C50 20 20 90 20 145C20 200 55 230 100 230C145 230 180 200 180 145C180 90 150 20 100 20Z" 
+                                  fill="#FCF8F2" 
+                                  fill-opacity="0.15" 
+                                  stroke="#EA580C" 
+                                  stroke-width="3" 
+                                  stroke-dasharray="1 0"
+                                  id="candling-shell"/>
+
+                            <!-- Air Cell (Gets larger as day count increases) -->
+                            <path id="candling-aircell" d="M43 205C60 218 80 223 100 223C120 223 140 218 157 205C148 198 126 195 100 195C74 195 52 198 43 205Z" fill="#1E293B" stroke="#F97316" stroke-width="1.5" stroke-opacity="0.5"/>
+
+                            <!-- Inside Embryo Elements (Managed with SVG manipulation in JS) -->
+                            <!-- Yolk shadow / glow -->
+                            <circle id="candling-yolk" cx="100" cy="130" r="40" fill="url(#yolkGlow)" opacity="0.8"/>
+                            
+                            <!-- Blood Vessels (Only visible on Days 4-16) -->
+                            <g id="candling-vessels" opacity="0" class="transition-all duration-300">
+                                <!-- Main vessel lines radiating from center -->
+                                <path d="M100 130 Q70 110 50 120" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+                                <path d="M100 130 Q120 110 150 115" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+                                <path d="M100 130 Q90 160 80 180" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+                                <path d="M100 130 Q115 155 135 170" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+                                <path d="M100 130 Q80 135 60 150" stroke="#EF4444" stroke-width="1" fill="none"/>
+                                <path d="M100 130 Q120 135 140 145" stroke="#EF4444" stroke-width="1" fill="none"/>
+                            </g>
+
+                            <!-- The Embryo Spot / Growing chick -->
+                            <g id="candling-embryo" opacity="0">
+                                <!-- Embryo Eye -->
+                                <circle id="embryo-eye" cx="90" cy="120" r="3" fill="#0F172A"/>
+                                <!-- Embryo body curve -->
+                                <path id="embryo-body" d="M90 125 C80 130 85 145 100 145 C115 145 110 130 105 125" stroke="#991B1B" stroke-width="4" stroke-linecap="round" fill="none"/>
+                            </g>
+
+                            <!-- Late Stage Darkening Shadow (Chicken filling the egg, Days 14-21) -->
+                            <path id="candling-mass" d="M100 50C70 65 30 100 30 145C30 180 50 200 100 200C150 200 170 180 170 145C170 100 130 65 100 50Z" fill="#111827" opacity="0" class="transition-all duration-300"/>
+
+                            <!-- Gradients -->
+                            <defs>
+                                <radialGradient id="yolkGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#F59E0B" stop-opacity="1"/>
+                                    <stop offset="60%" stop-color="#EA580C" stop-opacity="0.6"/>
+                                    <stop offset="100%" stop-color="#7C2D12" stop-opacity="0"/>
+                                </radialGradient>
+                                <linearGradient id="flashlightBeam" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.8"/>
+                                    <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <!-- Interactive Candling Beam Toggle -->
+                    <button onclick="toggleCandlingLight()" class="mt-4 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs rounded-xl flex items-center gap-2 transition shadow-md">
+                        <i class="fa-solid fa-lightbulb"></i> <span id="btn-light-text">Turn Off Candler Beam</span>
+                    </button>
+                </div>
+
+                <!-- Day Controller & Details Panel (Right) -->
+                <div class="space-y-6">
+                    <div class="space-y-1">
+                        <span class="text-amber-500 font-bold text-sm tracking-widest uppercase">Incubation Timeline</span>
+                        <h3 class="text-3xl font-extrabold text-white">Day <span id="candling-day-label" class="text-amber-500">1</span> of 21</h3>
+                        <p class="text-slate-400 text-sm">Use the slider or the control buttons below to watch the chick develop hour by hour!</p>
+                    </div>
+
+                    <!-- Slider Control -->
+                    <div class="space-y-3">
+                        <input type="range" id="day-slider" min="1" max="21" value="1" oninput="updateCandlingDay(this.value)" class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500 focus:outline-none">
+                        <div class="flex justify-between text-xs text-slate-400 px-1 font-bold">
+                            <span>Day 1 (Start)</span>
+                            <span>Day 7 (Veins)</span>
+                            <span>Day 14 (Feathers)</span>
+                            <span>Day 19 (Lockdown)</span>
+                            <span>Day 21 (Hatch!)</span>
+                        </div>
+                    </div>
+
+                    <!-- Step Back / Forward Buttons -->
+                    <div class="flex gap-3">
+                        <button onclick="stepDay(-1)" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition flex items-center justify-center gap-2 border border-slate-700">
+                            <i class="fa-solid fa-chevron-left"></i> Previous Day
+                        </button>
+                        <button onclick="stepDay(1)" class="flex-1 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition flex items-center justify-center gap-2">
+                            Next Day <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Description of Day Development -->
+                    <div class="p-5 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-3">
+                        <h4 class="font-bold text-lg text-amber-400 flex items-center gap-2">
+                            <i class="fa-solid fa-dna"></i> Developmental Stage:
+                        </h4>
+                        <p id="candling-stage-desc" class="text-slate-200 text-sm leading-relaxed">
+                            Fertilized egg begins cellular division. If kept warm, cells start creating the embryo's backbone and neural tubes within hours.
+                        </p>
+                        <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-temperature-half text-amber-500"></i> Temp: <b class="text-slate-200">99.5°F (37.5°C)</b></span>
+                            <span><i class="fa-solid fa-droplet text-blue-400"></i> Humidity: <b class="text-slate-200" id="ideal-humidity">50-55%</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB: QUIZ ==================== -->
+        <section id="view-quiz" class="tab-view hidden space-y-8 animate-fade-in">
+            <!-- Quiz Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Knowledge Check</span>
+                <h2 class="text-3xl font-extrabold text-slate-800">Chicken Reproduction & Hatching Quiz</h2>
+                <p class="text-slate-600 text-sm">Test your poultry biological knowledge! Perfect for checking if you are ready to incubate your own clutch of eggs.</p>
+            </div>
+
+            <!-- Quiz Card -->
+            <div class="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm space-y-6">
+                
+                <!-- Score Indicator -->
+                <div class="flex justify-between items-center bg-amber-50 p-4 rounded-xl border border-amber-100 text-sm">
+                    <span class="font-bold text-slate-700">Question <span id="quiz-question-index">1</span> of 5</span>
+                    <span class="font-bold text-amber-800 bg-amber-200 px-3 py-1 rounded-full">Score: <span id="quiz-score">0</span></span>
+                </div>
+
+                <!-- Question Prompt -->
+                <div class="space-y-4">
+                    <h3 id="quiz-question-text" class="text-xl md:text-2xl font-bold text-slate-800">Do hens need a rooster to lay eggs?</h3>
+                    
+                    <!-- Interactive Option List -->
+                    <div id="quiz-options-container" class="space-y-3">
+                        <!-- Dynamic buttons injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Explanation Area (hidden by default) -->
+                <div id="quiz-explanation-box" class="hidden p-5 rounded-2xl border transition-all duration-300 space-y-3">
+                    <h4 id="quiz-result-title" class="font-bold text-lg">Correct!</h4>
+                    <p id="quiz-explanation-text" class="text-slate-600 text-sm leading-relaxed">
+                        Hens have an active left ovary and oviduct. They lay unfertilized eggs without a male rooster around, which is typical for supermarket products.
+                    </p>
+                    <button onclick="nextQuizQuestion()" id="quiz-next-btn" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        Next Question <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Final Score Screen (hidden by default) -->
+                <div id="quiz-final-screen" class="hidden text-center py-8 space-y-6">
+                    <div class="w-24 h-24 bg-amber-100 text-amber-600 rounded-full mx-auto flex items-center justify-center text-4xl shadow-inner">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-3xl font-extrabold text-slate-800">Quiz Completed!</h3>
+                        <p class="text-slate-500">You scored <span id="quiz-final-score" class="font-bold text-amber-600">4/5</span> points.</p>
+                        <p id="quiz-performance-comment" class="text-slate-600 text-sm italic">Excellent, you're an official chicken biological expert!</p>
+                    </div>
+                    <button onclick="resetQuiz()" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition shadow-md flex items-center justify-center gap-2 mx-auto">
+                        <i class="fa-solid fa-rotate-right"></i> Play Again
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB: EXPERT CHATBOT ==================== -->
+        <section id="view-expert" class="tab-view hidden space-y-8 animate-fade-in">
+            <!-- Expert Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">AI Expert Assistant</span>
+                <h2 class="text-3xl font-extrabold text-slate-800">Ask the AI Hatchery Specialist</h2>
+                <p class="text-slate-600 text-sm">
+                    Have unique questions about flock genetics, broody hen management, shell development, or incubation troubleshooting? Chat directly with our AI expert below.
+                </p>
+            </div>
+
+            <!-- Chat Console -->
+            <div class="max-w-3xl mx-auto bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col h-[550px]">
+                <!-- Chat Window Header -->
+                <div class="bg-amber-500 text-white px-6 py-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base leading-tight">Dr. Cluck (Poultry Biologist)</h3>
+                        <p class="text-xs text-amber-100">Ready to answer hatchery & incubation questions</p>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Scroll Container -->
+                <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-slate-50">
+                    <!-- Standard initial prompt message -->
+                    <div class="flex gap-3 max-w-[85%]">
+                        <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 text-sm">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-100 text-sm text-slate-700 space-y-2">
+                            <p>Hello! I am Dr. Cluck, your personal AI poultry biologist. How can I help you understand the chicken reproductive system, egg development, or chick growth today?</p>
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <button onclick="sendSuggestedChat('What is an egg tooth?')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg px-2 py-1 text-xs font-semibold">What is an egg tooth?</button>
+                                <button onclick="sendSuggestedChat('Can a hen hatch eggs without a rooster?')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg px-2 py-1 text-xs font-semibold">Need a rooster?</button>
+                                <button onclick="sendSuggestedChat('What temperature does an incubator need?')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg px-2 py-1 text-xs font-semibold">Incubator temp?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner element (visually elegant inside message box, initially hidden) -->
+                <div id="chat-loading-indicator" class="hidden px-6 py-3 bg-slate-100 border-t flex items-center gap-3 text-sm text-slate-500">
+                    <i class="fa-solid fa-spinner animate-spin text-amber-500"></i>
+                    <span>Dr. Cluck is thinking about your query...</span>
+                </div>
+
+                <!-- Chat Input area -->
+                <div class="p-4 border-t border-slate-100 bg-white">
+                    <form onsubmit="handleSendChat(event)" class="flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Type your poultry question here..." class="flex-grow px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 text-sm">
+                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl transition flex items-center justify-center gap-2">
+                            <span>Send</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB: ILLUSTRATION LAB ==================== -->
+        <section id="view-lab" class="tab-view hidden space-y-8 animate-fade-in">
+            <!-- Lab Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest font-sans">AI Creative Tool</span>
+                <h2 class="text-3xl font-extrabold text-slate-800">AI Chicken Illustration Lab</h2>
+                <p class="text-slate-600 text-sm">Use our high-powered AI Image Generator (Imagen 4.0) to generate stunning realistic or cartoon images of hens, eggs, chicks, or embryo stages!</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm space-y-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Generator Settings & Prompts -->
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700">Select a Suggested Scene Prompt:</label>
+                            <div class="grid grid-cols-1 gap-2">
+                                <button onclick="setLabPrompt('A close up detailed photograph of a fluffy yellow chick hatching from its egg, natural lighting, high depth of field')" class="text-left text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 font-semibold p-3 rounded-xl border border-amber-200 transition">
+                                    🐣 Chick Hatching (Realistic Photo)
+                                </button>
+                                <button onclick="setLabPrompt('A beautiful mama hen sitting cozy on her organic straw nest full of brown speckled eggs, rustic wooden barn interior')" class="text-left text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 font-semibold p-3 rounded-xl border border-amber-200 transition">
+                                    🐔 Broody Mama Hen (Warm Interior)
+                                </button>
+                                <button onclick="setLabPrompt('An elegant watercolor painting illustrating the structure of a chicken embryo developing inside an egg shell')" class="text-left text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 font-semibold p-3 rounded-xl border border-amber-200 transition">
+                                    🎨 Embryo Structure (Watercolor)
+                                </button>
+                                <button onclick="setLabPrompt('A proud rooster with colourful feathers standing in a green meadow at sunrise, realistic photograph')" class="text-left text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 font-semibold p-3 rounded-xl border border-amber-200 transition">
+                                    🐓 Rooster at Sunrise (Photo)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Prompt Field -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700">Or Type Your Own Prompt:</label>
+                            <textarea id="lab-prompt-input" rows="3" placeholder="Describe the scene you want to generate in detail (e.g., 'A cartoon of a chick with a tiny pilot hat standing on an eggshell')..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-amber-500 text-sm"></textarea>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button onclick="handleGenerateImage()" class="w-full py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Custom Image
+                        </button>
+                    </div>
+
+                    <!-- Output Canvas / Image Box -->
+                    <div class="flex flex-col items-center justify-center p-6 bg-slate-50 border border-dashed border-slate-200 rounded-2xl min-h-[350px] relative">
+                        <!-- Loading display overlay -->
+                        <div id="lab-loading" class="hidden absolute inset-0 bg-white/95 z-20 flex flex-col items-center justify-center space-y-4">
+                            <div class="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                            <p class="text-sm font-bold text-amber-900 animate-pulse">Imagen is creating your avian art...</p>
+                        </div>
+
+                        <!-- Main Image Target -->
+                        <div id="lab-image-placeholder" class="text-center space-y-3 z-10">
+                            <div class="text-6xl text-amber-300">
+                                <i class="fa-regular fa-image"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-700">Art Generation Output</h4>
+                            <p class="text-slate-400 text-xs max-w-xs mx-auto">Your generated chicken illustration will appear here. Choose a preset on the left or type your prompt!</p>
+                        </div>
+                        <img id="lab-generated-img" class="hidden w-full h-auto rounded-xl shadow-md border max-h-[340px] object-cover z-10" alt="AI Chicken Illustration">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer with info & help -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs mt-auto">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <p class="font-bold text-slate-300">Egg to Chick Development & Science Platform</p>
+            <p>Built with Google Gemini & Tailwind CSS. Designed to be highly educational for school biology classes, agricultural students, and poultry hobbyists.</p>
+            <p>© 2026 Hatchery Science Labs. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // API KEY setup for direct runtimes
+        const apiKey = ""; 
+
+        // Exponential backoff runner for API integrity
+        async function callWithBackoff(fetchCall, maxRetries = 5) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    return await fetchCall();
+                } catch (err) {
+                    if (i === maxRetries - 1) throw err;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // exponential backing
+                }
+            }
+        }
+
+        // --- CUSTOM NOTIFICATION SYSTEM ---
+        function showNotification(message, isError = false) {
+            const banner = document.getElementById('notification-banner');
+            const icon = document.getElementById('notif-icon');
+            const msg = document.getElementById('notif-message');
+
+            msg.textContent = message;
+            if (isError) {
+                banner.className = "mb-6 p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 flex justify-between items-center transition-all duration-300";
+                icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            } else {
+                banner.className = "mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 flex justify-between items-center transition-all duration-300";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideNotification() {
+            document.getElementById('notification-banner').classList.add('hidden');
+        }
+
+        // --- TAB SWITCHER LOGIC ---
+        function switchTab(tabId) {
+            // Hide all tab views
+            const views = document.querySelectorAll('.tab-view');
+            views.forEach(v => v.classList.add('hidden'));
+
+            // Show current view
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+            // Style active/inactive button tags
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                if (btn.id === `tab-${tabId}`) {
+                    btn.className = "nav-btn bg-amber-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 flex items-center gap-2 shadow-sm";
+                } else {
+                    btn.className = "nav-btn bg-amber-400 text-amber-950 px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-amber-600 hover:text-white flex items-center gap-2";
+                }
+            });
+        }
+
+        // --- CANDLING SIMULATOR DATA & LOGIC ---
+        const developmentalStages = {
+            1: {
+                desc: "Fertilization & Cell Division: The egg yolk contains a fertilized germinal disc. Cellular division commences if kept at incubation temperature. No visible development is seen by the eye yet.",
+                humidity: "50-55%"
+            },
+            2: {
+                desc: "First Blood Vessels & Heart beating: Extremely tiny blood vessels begin to radiate. The heart is forming and is actually beating, but is still too tiny to see clearly under candling without a microscope.",
+                humidity: "50-55%"
+            },
+            3: {
+                desc: "Blood Island formation: Blood vessels expand outward rapidly on the surface of the yolk. Head folds and nervous system continue to differentiate rapidly.",
+                humidity: "50-55%"
+            },
+            4: {
+                desc: "The Heart and Eye develop: The eye starts showing pigment. When candling, you begins to see a faint reddish haze or very small vascular lines starting to emerge in healthy eggs.",
+                humidity: "50-55%"
+            },
+            5: {
+                desc: "Limb buds appear: The elbows, knee structures, and webbed claws of the chick begin development. The yolk sac is now heavily vascularized.",
+                humidity: "50-55%"
+            },
+            6: {
+                desc: "Beak begins forming: Under the candler, the embryo is visible as an active dark spot inside a web of delicate, red spiderweb-like blood vessels.",
+                humidity: "50-55%"
+            },
+            7: {
+                desc: "Egg Tooth appears: A tiny, sharp white tip starts growing on the beak. This temporary structure is used exclusively to punch out of the shell on hatching day.",
+                humidity: "50-55%"
+            },
+            8: {
+                desc: "Feather Tracts form: Small skin bumps indicate where fluffy feathers will grow. The chick itself is floating in protective embryonic fluid.",
+                humidity: "50-55%"
+            },
+            9: {
+                desc: "Wings and Toes visible: The skeleton is hardening (ossifying). The embryo actively moves inside the fluid cavity to prevent sticking to the shell membranes.",
+                humidity: "50-55%"
+            },
+            10: {
+                desc: "The Beak hardens: Claws begin to grow on the toes. When candling, the spiderweb veins are vibrant and thick, with the embryo clearly visible in the center.",
+                humidity: "50-55%"
+            },
+            11: {
+                desc: "Feather development: Soft down feathers begin covering the tiny body. Tail feathers start popping out. Heartbeat is strong and rapid.",
+                humidity: "50-55%"
+            },
+            12: {
+                desc: "Scale rings on feet: The feet start displaying tiny reptilian-like scales. The embryo is starting to take up significant space in the shell.",
+                humidity: "50-55%"
+            },
+            13: {
+                desc: "Skeletal hardening continues: The bones absorb calcium from the shell, making the bones strong while making the shell thinner and easier to break open later.",
+                humidity: "50-55%"
+            },
+            14: {
+                desc: "Head turns: The embryo repositions itself towards the larger end of the egg (where the air cell is). This is the key position for a successful hatch.",
+                humidity: "50-55%"
+            },
+            15: {
+                desc: "Feathers cover whole body: Down feathers are fully developed, protecting the embryo's skin from the surrounding amniotic fluids.",
+                humidity: "50-55%"
+            },
+            16: {
+                desc: "Embryo fills shell space: When candling, the egg appears almost entirely dark except for the large, glowing air cell at the bottom of the shell. You can no longer see individual veins easily.",
+                humidity: "50-55%"
+            },
+            17: {
+                desc: "Prep for hatching: The embryo tucks its head under its right wing, facing the air cell space. Amniotic fluid levels drop dramatically.",
+                humidity: "50-55%"
+            },
+            18: {
+                desc: "LOCKDOWN DAY: This is the critical final stage! Breeders stop turning the eggs. The incubator is shut and humidity is boosted to soften shell membranes.",
+                humidity: "65-70%"
+            },
+            19: {
+                desc: "Yolk absorption: The chick draws the remaining egg yolk into its abdomen through its navel. This yolk provides 48-72 hours of sustenance after hatching.",
+                humidity: "65-70%"
+            },
+            20: {
+                desc: "Internal Pip: The chick breaks through the inner membrane into the air cell and takes its very first breath of air with its lungs! You can hear tiny cheeps inside the egg.",
+                humidity: "65-70%"
+            },
+            21: {
+                desc: "Hatch Day (External Pip & Zip): The chick cracks the outer shell (pip), slowly circles around cutting a cap (zipping), kicks open the shell, and emerges fluffy and free!",
+                humidity: "65-70%"
+            }
+        };
+
+        let currentDay = 1;
+        let isCandlingLightOn = true;
+
+        function updateCandlingDay(day) {
+            currentDay = parseInt(day);
+            document.getElementById('day-slider').value = currentDay;
+            document.getElementById('candling-day-label').innerText = currentDay;
+            
+            // Update Text Details
+            const stage = developmentalStages[currentDay];
+            document.getElementById('candling-stage-desc').innerText = stage.desc;
+            document.getElementById('ideal-humidity').innerText = stage.humidity;
+
+            // Manipulate SVGs based on progress
+            const vessels = document.getElementById('candling-vessels');
+            const embryo = document.getElementById('candling-embryo');
+            const yolk = document.getElementById('candling-yolk');
+            const mass = document.getElementById('candling-mass');
+            const airCell = document.getElementById('candling-aircell');
+
+            if (!isCandlingLightOn) {
+                // If light beam is off, dim internal components
+                vessels.style.opacity = 0;
+                embryo.style.opacity = 0;
+                yolk.style.opacity = 0.05;
+                mass.style.opacity = 0.05;
+                return;
+            }
+
+            // Standard Candling visualization curves
+            if (currentDay >= 1 && currentDay <= 3) {
+                vessels.style.opacity = 0;
+                embryo.style.opacity = 0;
+                yolk.style.opacity = 0.8;
+                mass.style.opacity = 0;
+            } else if (currentDay >= 4 && currentDay <= 10) {
+                vessels.style.opacity = (currentDay - 3) * 0.15; // fade in veins
+                embryo.style.opacity = (currentDay - 3) * 0.15; // fade in embryo
+                yolk.style.opacity = 0.6;
+                mass.style.opacity = 0;
+            } else if (currentDay >= 11 && currentDay <= 15) {
+                vessels.style.opacity = 0.9;
+                embryo.style.opacity = 0.9;
+                yolk.style.opacity = 0.3;
+                mass.style.opacity = (currentDay - 10) * 0.16; // starts darkening
+            } else { // Days 16 to 21
+                vessels.style.opacity = 0.1; // vein visibility drops
+                embryo.style.opacity = 0;
+                yolk.style.opacity = 0;
+                mass.style.opacity = 0.95; // egg is almost pitch black inside except air cell
+            }
+
+            // Adjust Air Cell size dynamically
+            // Air Cell gets progressively bigger as egg loses water through pores
+            const airCellScaleY = 1 + (currentDay * 0.4);
+            airCell.setAttribute('transform', `scale(1, ${airCellScaleY / 1.5}) translate(0, ${-currentDay * 1.5})`);
+        }
+
+        function stepDay(direction) {
+            let next = currentDay + direction;
+            if (next < 1) next = 1;
+            if (next > 21) next = 21;
+            updateCandlingDay(next);
+        }
+
+        function toggleCandlingLight() {
+            isCandlingLightOn = !isCandlingLightOn;
+            const glow = document.getElementById('glow-element');
+            const shell = document.getElementById('candling-shell');
+            const btnText = document.getElementById('btn-light-text');
+
+            if (isCandlingLightOn) {
+                glow.style.opacity = 0.2;
+                shell.setAttribute('fill-opacity', '0.15');
+                shell.setAttribute('stroke', '#EA580C');
+                btnText.innerText = "Turn Off Candler Beam";
+            } else {
+                glow.style.opacity = 0;
+                shell.setAttribute('fill-opacity', '0.9');
+                shell.setAttribute('stroke', '#334155');
+                btnText.innerText = "Turn On Candler Beam";
+            }
+            updateCandlingDay(currentDay);
+        }
+
+
+        // --- INTERACTIVE QUIZ DATA & LOGIC ---
+        const quizQuestions = [
+            {
+                q: "How many days does it take for a standard chicken egg to fully incubate and hatch?",
+                options: [
+                    "14 Days",
+                    "21 Days",
+                    "30 Days",
+                    "45 Days"
+                ],
+                correct: 1,
+                explain: "It takes exactly 21 days for standard chicken eggs to hatch, though temperatures slightly too cold or warm can delay or speed it up by a day."
+            },
+            {
+                q: "Does a hen require a male rooster in order to lay a standard egg?",
+                options: [
+                    "Yes, always",
+                    "No, only to make the eggs fertilized so they can hatch",
+                    "Yes, but only in spring",
+                    "Only if she has never laid before"
+                ],
+                correct: 1,
+                explain: "No! Hens lay unfertilized eggs naturally as part of their reproductive cycle. A rooster is only necessary to fertilize the eggs so that they contain chicks."
+            },
+            {
+                q: "What is the primary function of the rope-like chalaza inside the egg?",
+                options: [
+                    "To supply oxygen to the chick",
+                    "To keep the yolk perfectly anchored in the center of the albumen",
+                    "To harden the shell",
+                    "To form the chick's beak on Day 7"
+                ],
+                correct: 1,
+                explain: "The chalazae are twisted protein bands that anchor the delicate yolk in the center, protecting the embryo from smashing against the shell walls."
+            },
+            {
+                q: "On what critical day of chicken incubation does 'Lockdown' occur?",
+                options: [
+                    "Day 1",
+                    "Day 7",
+                    "Day 18",
+                    "Day 21"
+                ],
+                correct: 2,
+                explain: "Lockdown happens on Day 18. Egg turning is stopped, and humidity is increased significantly (to about 65-70%) so the shell membranes remain soft for hatching."
+            },
+            {
+                q: "What is the name of the sharp white tip on a chick's beak used to crack the shell?",
+                options: [
+                    "Chipping tooth",
+                    "Shell wedge",
+                    "Egg tooth",
+                    "Pip tooth"
+                ],
+                correct: 2,
+                explain: "It is called the 'Egg tooth.' This tiny, sharp calcium deposit falls off naturally within a day or two after hatching once its work is done."
+            }
+        ];
+
+        let quizIndex = 0;
+        let quizScore = 0;
+
+        function loadQuizQuestion() {
+            const container = document.getElementById('quiz-options-container');
+            const expBox = document.getElementById('quiz-explanation-box');
+            
+            expBox.classList.add('hidden');
+            container.innerHTML = "";
+
+            if (quizIndex >= quizQuestions.length) {
+                // Show final results screen
+                document.getElementById('quiz-question-index').parentElement.parentElement.classList.add('hidden');
+                document.getElementById('quiz-final-screen').classList.remove('hidden');
+                document.getElementById('quiz-final-score').innerText = `${quizScore} / ${quizQuestions.length}`;
+                
+                let comment = "You're a biological wizard! Keep up the incredible hatchery curiosity.";
+                if (quizScore < 3) comment = "Not bad! Re-read the lifecycle guide or play with the candling timeline to boost your score.";
+                document.getElementById('quiz-performance-comment').innerText = comment;
+                return;
+            }
+
+            document.getElementById('quiz-question-index').innerText = quizIndex + 1;
+            document.getElementById('quiz-score').innerText = quizScore;
+            
+            const item = quizQuestions[quizIndex];
+            document.getElementById('quiz-question-text').innerText = item.q;
+
+            item.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition font-medium text-sm flex justify-between items-center";
+                btn.innerHTML = `<span>${opt}</span><i class="fa-regular fa-circle text-slate-300"></i>`;
+                btn.onclick = () => submitQuizAnswer(idx, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selectedIndex, clickedBtn) {
+            const item = quizQuestions[quizIndex];
+            const container = document.getElementById('quiz-options-container');
+            const buttons = container.querySelectorAll('button');
+            const expBox = document.getElementById('quiz-explanation-box');
+            const resTitle = document.getElementById('quiz-result-title');
+            const resTxt = document.getElementById('quiz-explanation-text');
+
+            // Disable further clicks
+            buttons.forEach(b => b.onclick = null);
+
+            if (selectedIndex === item.correct) {
+                quizScore++;
+                clickedBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 transition font-medium text-sm flex justify-between items-center";
+                clickedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-600";
+                
+                resTitle.innerText = "Correct! 🎉";
+                resTitle.className = "font-bold text-lg text-emerald-800";
+                expBox.className = "p-5 rounded-2xl border border-emerald-100 bg-emerald-50 text-emerald-900 space-y-3";
+            } else {
+                clickedBtn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-50 text-rose-900 transition font-medium text-sm flex justify-between items-center";
+                clickedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-600";
+                
+                // Highlight correct button
+                buttons[item.correct].className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 transition font-medium text-sm flex justify-between items-center";
+                buttons[item.correct].querySelector('i').className = "fa-solid fa-circle-check text-emerald-600";
+
+                resTitle.innerText = "Not Quite! 🥚";
+                resTitle.className = "font-bold text-lg text-rose-800";
+                expBox.className = "p-5 rounded-2xl border border-rose-100 bg-rose-50 text-rose-900 space-y-3";
+            }
+
+            resTxt.innerText = item.explain;
+            expBox.classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            quizIndex++;
+            loadQuizQuestion();
+        }
+
+        function resetQuiz() {
+            quizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-final-screen').classList.add('hidden');
+            document.getElementById('quiz-question-index').parentElement.parentElement.classList.remove('hidden');
+            loadQuizQuestion();
+        }
+
+
+        // --- AI HATCHERY EXPERT CHATBOT ---
+        function sendSuggestedChat(promptText) {
+            document.getElementById('chat-input').value = promptText;
+        }
+
+        async function handleSendChat(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Render User Bubble
+            addChatMessage(query, true);
+            input.value = "";
+
+            // Show Thinking Indicator
+            const loader = document.getElementById('chat-loading-indicator');
+            loader.classList.remove('hidden');
+
+            try {
+                const response = await callWithBackoff(async () => {
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: query }] }],
+                            systemInstruction: {
+                                parts: [{ text: "You are an expert poultry biologist and hatchery specialist. Answer the user's questions about chicken reproduction, egg formation, incubation, embryo development, and chick care in a friendly, engaging, and highly informative manner. Keep answers moderately brief and structured with bold highlights so they are incredibly easy for students and hobbyists to digest." }]
+                            }
+                        })
+                    });
+                    if (!res.ok) throw new Error("API call failed");
+                    return res.json();
+                });
+
+                const reply = response.candidates?.[0]?.content?.parts?.[0]?.text || "I was unable to retrieve that information. Please try again!";
+                addChatMessage(reply, false);
+            } catch (error) {
+                addChatMessage("Hmm, I experienced a minor connection error. Please ensure your environment has API connectivity and try again!", false);
+            } finally {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function addChatMessage(message, isUser) {
+            const chatBox = document.getElementById('chat-messages');
+            const wrap = document.createElement('div');
+            wrap.className = `flex gap-3 max-w-[85%] ${isUser ? 'ml-auto flex-row-reverse' : ''}`;
+
+            const iconClass = isUser ? 'fa-solid fa-user' : 'fa-solid fa-robot';
+            const iconBg = isUser ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700';
+            const msgBg = isUser ? 'bg-amber-50 border-amber-200' : 'bg-white border-slate-100';
+
+            // Convert simple markdowns into bold/breaks dynamically for clean chat rendering
+            const cleanMessage = message
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            wrap.innerHTML = `
+                <div class="w-8 h-8 rounded-full ${iconBg} flex items-center justify-center flex-shrink-0 text-sm">
+                    <i class="${iconClass}"></i>
+                </div>
+                <div class="${msgBg} p-4 rounded-2xl border text-sm text-slate-700 space-y-2">
+                    <p>${cleanMessage}</p>
+                </div>
+            `;
+            chatBox.appendChild(wrap);
+            chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: 'smooth' });
+        }
+
+
+        // --- AI ILLUSTRATION LAB (IMAGEN 4) ---
+        function setLabPrompt(text) {
+            document.getElementById('lab-prompt-input').value = text;
+        }
+
+        async function handleGenerateImage() {
+            const input = document.getElementById('lab-prompt-input');
+            const prompt = input.value.trim();
+            if (!prompt) {
+                showNotification("Please provide a prompt description first!", true);
+                return;
+            }
+
+            const loader = document.getElementById('lab-loading');
+            const placeholder = document.getElementById('lab-image-placeholder');
+            const imgTarget = document.getElementById('lab-generated-img');
+
+            loader.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+            imgTarget.classList.add('hidden');
+
+            try {
+                const response = await callWithBackoff(async () => {
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            instances: { prompt: prompt },
+                            parameters: { sampleCount: 1 }
+                        })
+                    });
+                    if (!res.ok) throw new Error("Imagen production error");
+                    return res.json();
+                });
+
+                const bytes = response.predictions?.[0]?.bytesBase64Encoded;
+                if (!bytes) {
+                    throw new Error("No image data returned from predictive model");
+                }
+
+                imgTarget.src = `data:image/png;base64,${bytes}`;
+                imgTarget.classList.remove('hidden');
+                showNotification("Stunning chicken illustration generated successfully!");
+            } catch (error) {
+                showNotification("Failed to generate image. Please try again.", true);
+                placeholder.classList.remove('hidden');
+            } finally {
+                loader.classList.add('hidden');
+            }
+        }
+
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            // Setup Candling Default Day
+            updateCandlingDay(1);
+            // Setup Quiz Setup
+            loadQuizQuestion();
+        }
+    </script>
+</body>
+</html>
